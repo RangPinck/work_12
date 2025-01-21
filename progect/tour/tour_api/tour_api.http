@@ -3,3 +3,5 @@
 # GET {{tour_api_HostAddress}}/weatherforecast/
 # Accept: application/json
 
+GET {{tour_api_HostAddress}}/tour_api/v1/Connection/check_connection
+Accept: application/json
