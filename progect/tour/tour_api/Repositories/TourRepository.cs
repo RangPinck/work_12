@@ -13,9 +13,9 @@ namespace tour_api.Repositories
             this._context = context;
         }
 
-        public Task<ICollection<TourDTO>> GetTours()
-        {
-            return new List<TourDTO>();
-        }
+        //public Task<ICollection<TourDTO>> GetTours()
+        //{
+        //    return List<TourDTO>();
+        //}
     }
 }

@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "api",
+    "Projects": [
+      {
+        "Path": "tour_api\\tour_api.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      }
+    ]
+  }
+]
