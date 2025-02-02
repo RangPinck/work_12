@@ -1,21 +1,35 @@
-﻿using tour_api.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using tour_api.DTO;
 using tour_api.Interfaces;
 using tour_api.Models;
 
 namespace tour_api.Repositories
 {
+    /// <summary>
+    /// Класс методов обращения к базе данных для работы с турами
+    /// </summary>
     public class TourRepository : ITourRepository
     {
         private readonly _43pToursContext _context;
 
-        public TourRepository(_43pToursContext context)
-        {
-            this._context = context;
-        }
+        public TourRepository(_43pToursContext context) => _context = context;
 
-        //public Task<ICollection<TourDTO>> GetTours()
-        //{
-        //    return List<TourDTO>();
-        //}
+        /// <summary>
+        /// Получение списка туров
+        /// </summary>
+        /// <returns>Список туров соотвествующий модели TourDTO</returns>
+        public async Task<ICollection<TourDTO>> GetTours() => await _context.Tours.Select(x => new TourDTO()
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Description = x.Description,
+            ImagePreview = x.ImagePreview,
+            Price = x.Price,
+            TicketCount = x.TicketCount,
+            IsActual = x.IsActual,
+            Type = x.ToursTypes.Select(type => type.TypeId).ToList()
+        }
+        ).ToListAsync<TourDTO>();
+
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace tour_api.Models;
+﻿namespace tour_api.Models;
 
 public partial class Type
 {

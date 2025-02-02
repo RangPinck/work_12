@@ -1,4 +1,6 @@
-﻿namespace tour_api.DTO
+﻿using System.Collections.Generic;
+
+namespace tour_api.DTO
 {
     /// <summary>
     /// Модель вывода данных о турах

@@ -7,6 +7,6 @@ namespace tour_api.Interfaces
     /// </summary>
     public interface ITourRepository
     {
-        //Task<ICollection<TourDTO>> GetTours();
+        Task<ICollection<TourDTO>> GetTours();
     }
 }

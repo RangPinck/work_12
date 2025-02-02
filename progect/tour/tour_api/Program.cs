@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using tour_api.Interfaces;
 using tour_api.Models;
@@ -14,6 +13,9 @@ namespace tour_api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddScoped<IConnectionRepository, ConnectionRepository>();
+            builder.Services.AddScoped<ITourRepository, TourRepository>();
+            builder.Services.AddScoped<ITourTypesRepository, TourTypesRepository>();
+
 
             builder.Services.AddDbContext<_43pToursContext>(options =>
             {
