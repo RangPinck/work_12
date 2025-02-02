@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using tour_api.Interfaces;
 using tour_api.Models;
 using tour_api.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace tour_api
 {
@@ -27,7 +28,17 @@ namespace tour_api
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+                {
+                    options.SwaggerDoc("v1", new OpenApiInfo()
+                    {
+                        Version = "v1",
+                        Title = "Tour Web API",
+                        Description = "First versshio API for progect that managment tours"
+                    }
+                    );
+                }
+            );
 
             var app = builder.Build();
 
