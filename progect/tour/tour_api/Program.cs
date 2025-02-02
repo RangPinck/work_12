@@ -15,7 +15,8 @@ namespace tour_api
             builder.Services.AddScoped<IConnectionRepository, ConnectionRepository>();
             builder.Services.AddScoped<ITourRepository, TourRepository>();
             builder.Services.AddScoped<ITourTypesRepository, TourTypesRepository>();
-
+            builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+            builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 
             builder.Services.AddDbContext<_43pToursContext>(options =>
             {

@@ -3,6 +3,9 @@ using tour_api.Interfaces;
 
 namespace tour_api.Controllers
 {
+    /// <summary>
+    /// Контроллер подключения API к базе данных
+    /// </summary>
     [Route("tour_api/v1/[controller]")]
     [ApiController]
     public class ConnectionController : Controller
@@ -11,6 +14,13 @@ namespace tour_api.Controllers
 
         public ConnectionController(IConnectionRepository repository) => _repository = repository;
 
+        /// <summary>
+        /// Endpoint проверки подключения к базе данных из API
+        /// </summary>
+        /// <returns>
+        /// true - API подключён к базе данных,
+        /// false - API не подключён к базе данных
+        /// </returns>
         [HttpGet("check_connection")]
         [ProducesResponseType(200, Type = typeof(Boolean))]
         [ProducesResponseType(400)]

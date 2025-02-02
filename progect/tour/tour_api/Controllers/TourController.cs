@@ -4,6 +4,9 @@ using tour_api.Interfaces;
 
 namespace tour_api.Controllers
 {
+    /// <summary>
+    /// Контроллер подключения управления турами
+    /// </summary>
     [Route("tour_api/v1/[controller]")]
     [ApiController]
     public class TourController : Controller
@@ -12,10 +15,14 @@ namespace tour_api.Controllers
 
         public TourController(ITourRepository repository) => _repository = repository;
 
-        [HttpGet("get_tour")]
+        /// <summary>
+        /// Endpoint получения списка туров
+        /// </summary>
+        /// <returns>список туров, соответсвующий модели TourDTO</returns>
+        [HttpGet("get_tours")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<TourDTO>))]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> CheckConnection()
+        public async Task<IActionResult> GetTours()
         {
             var tours = await _repository.GetTours();
 
