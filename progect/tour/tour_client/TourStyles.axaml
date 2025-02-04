@@ -1,0 +1,18 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+
+	<!--Синий -  #445c93
+	Красный - #e31e24
+	Бирюзовый - #bae3e8
+	Жёлтый -  #fac716
+	Серый - #878787
+	Коричневый - #634e42-->
+	
+	
+	
+</Styles>
