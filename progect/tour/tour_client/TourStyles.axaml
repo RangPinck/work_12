@@ -12,7 +12,8 @@
 	Жёлтый -  #fac716
 	Серый - #878787
 	Коричневый - #634e42-->
-	
-	
+	<Style Selector="TextBlock">
+		<Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+	</Style>
 	
 </Styles>
