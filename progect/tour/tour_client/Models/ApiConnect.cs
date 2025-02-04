@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using tour_api.DTO;
 
 namespace tour_client.Models
 {
@@ -43,7 +45,29 @@ namespace tour_client.Models
             {
                 return ConnectionState.DisconnectedInternet;
             }
-            
         }
+
+        public async Task<string> GetTours()
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync("v1/Tour/get_tours");
+            if (response.StatusCode > (HttpStatusCode)399)
+            {
+                return string.Empty;
+            }
+            string responceBody = await response.Content.ReadAsStringAsync();
+            return responceBody;
+        }
+
+        public async Task<string> GetToursTypes()
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync("v1/TourTypes/get_tours_types");
+            if (response.StatusCode > (HttpStatusCode)399)
+            {
+                return string.Empty;
+            }
+            string responceBody = await response.Content.ReadAsStringAsync();
+            return responceBody;
+        }
+
     }
 }

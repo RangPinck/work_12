@@ -37,7 +37,7 @@ namespace tour_api
                     {
                         Version = "v1",
                         Title = "Tour Web API",
-                        Description = "First versshio API for progect that managment tours"
+                        Description = "First version API for progect that managment tours"
                     }
                     );
                 }

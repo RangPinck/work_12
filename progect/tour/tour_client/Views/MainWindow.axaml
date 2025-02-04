@@ -6,12 +6,19 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="tour_client.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="tour_client">
+        Icon="/Assets/logo_full_color.ico"
+        Title="Путешествуй по России">
 
     <Design.DataContext>
-
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+
+	<Grid RowDefinitions="*,70">
+		<UserControl Content="{Binding PageControl}" Grid.Row="0"></UserControl>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Button>Туры</Button>
+			<Button>Отели</Button>
+		</StackPanel>
+	</Grid>
 
 </Window>
