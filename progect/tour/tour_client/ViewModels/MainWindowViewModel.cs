@@ -21,5 +21,15 @@ namespace tour_client.ViewModels
         {
             Instance = this;
         }
+
+        public void GoToHotel()
+        {
+            PageControl = new HotelPage();
+        }
+
+        public void GoToTour()
+        {
+            PageControl = new TourPage();
+        }
     }
 }

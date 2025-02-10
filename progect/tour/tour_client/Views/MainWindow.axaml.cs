@@ -8,5 +8,9 @@ namespace tour_client.Views
         {
             InitializeComponent();
         }
+
+        private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace tour_api.Repositories
             Price = x.Price,
             TicketCount = x.TicketCount,
             IsActual = x.IsActual,
+            IsActualText = x.IsActual == 1 ? "Актуален" : "Не актуален",
             Type = x.ToursTypes.Select(type => type.TypeId).ToList()
         }
         ).ToListAsync<TourDTO>();

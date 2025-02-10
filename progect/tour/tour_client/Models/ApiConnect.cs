@@ -68,5 +68,16 @@ namespace tour_client.Models
             string responceBody = await response.Content.ReadAsStringAsync();
             return responceBody;
         }
+
+        public async Task<string> GetHotels()
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync("v1/Hotel/get_hotels");
+            if (response.StatusCode > (HttpStatusCode)399)
+            {
+                return string.Empty;
+            }
+            string responceBody = await response.Content.ReadAsStringAsync();
+            return responceBody;
+        }
     }
 }

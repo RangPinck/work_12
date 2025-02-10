@@ -16,8 +16,8 @@
 	<Grid RowDefinitions="*,70">
 		<UserControl Content="{Binding PageControl}" Grid.Row="0"></UserControl>
 		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-			<Button>Туры</Button>
-			<Button>Отели</Button>
+			<Button Command="{Binding GoToTour}">Туры</Button>
+			<Button Command="{Binding GoToHotel}">Отели</Button>
 		</StackPanel>
 	</Grid>
 

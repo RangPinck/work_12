@@ -7,4 +7,38 @@
 			 xmlns:vm="using:tour_client.ViewModels"
 			 x:DataType="vm:HotelPageViewModel">
 
+	<Grid RowDefinitions="*, 60">
+		<ScrollViewer Grid.Row="0">
+			<ListBox ItemsSource="{Binding FullDataHotel}" HorizontalAlignment="Center">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Width="800" Height="150" Margin="5">
+							<Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*">
+								<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}"></TextBlock>
+								<TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CountOfStars, StringFormat=Количество звёзд: {0}}"></TextBlock>
+								<TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Country, StringFormat=Страна:  {0}}"></TextBlock>
+								<Button Grid.Column="1" Grid.Row="0">Редактировать</Button>
+								<Button Grid.Column="1" Grid.Row="1">Удалить</Button>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Margin="5" Command="{Binding ToStart}">Первая</Button>
+			<Button Margin="5" Command="{Binding StepBack}">Назад</Button>
+			<NumericUpDown Margin="5" Watermark="Сколько" Minimum="1" Increment="1" Height="20" Value="{Binding CountItems}"></NumericUpDown>
+			<Button Margin="5" Command="{Binding StepNext}">Вперёд</Button>
+			<Button Margin="5" Command="{Binding ToEnd}">Последняя</Button>
+		</StackPanel>
+		<TextBlock Grid.Row="1" HorizontalAlignment="Right" Margin="10">
+			<TextBlock.Text>
+				<MultiBinding StringFormat="Страница: {0}/{1}">
+					<Binding Path ="Position"></Binding>
+					<Binding Path="AllPositions"></Binding>
+				</MultiBinding>
+			</TextBlock.Text>
+		</TextBlock>
+	</Grid>
 </UserControl>

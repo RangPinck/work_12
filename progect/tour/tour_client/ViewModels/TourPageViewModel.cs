@@ -15,6 +15,14 @@ namespace tour_client.ViewModels
         private string _search = string.Empty;
         private int _sumCostViewTours = 0;
         private bool _isActula = false;
+        private int _selectedFilterCost = 0;
+
+        private List<string> _filtersCost = new List<string>()
+        {
+            "Не выбрано",
+            "По возрастанию",
+            "По убыванию"
+        };
 
         public List<TourDTO> Tours
         {
@@ -47,6 +55,18 @@ namespace tour_client.ViewModels
                 ApplyFilters();
             }
         }
+
+        public int SelectFilterCost
+        {
+            get => _selectedFilterCost;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedFilterCost, value);
+                ApplyFilters();
+            }
+        }
+
+        public List<string> FiltersCost => _filtersCost;
 
         public bool IsActual
         {
@@ -102,8 +122,20 @@ namespace tour_client.ViewModels
 
             if (IsActual)
             {
-                Tours = Tours.Where(x=> x.IsActual == 1).ToList();
+                Tours = Tours.Where(x => x.IsActual == 1).ToList();
             }
+
+            switch (SelectFilterCost)
+            {
+                case 1:
+                    Tours = Tours.OrderBy(x => x.Price).ToList();
+                    break;
+                case 2:
+                    Tours = Tours.OrderByDescending(x => x.Price).ToList();
+                    break;
+            }
+
+            SumCostViewTours = Tours.Select(x => x.Price * x.TicketCount).Sum();
         }
     }
 }

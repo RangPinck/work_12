@@ -13,5 +13,6 @@
         public int TicketCount { get; set; }
         public List<int> Type { get; set; } = null!;
         public int IsActual { get; set; }
+        public string IsActualText { get; set; } = null!;
     }
 }
