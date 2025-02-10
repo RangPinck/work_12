@@ -10,9 +10,11 @@ namespace tour_client.ViewModels
     internal class TourPageViewModel : ViewModelBase
     {
         private List<TourDTO> _tours = new List<TourDTO>();
-        private List<TourTypesDTO> _toursTypes = new List<TourTypesDTO>(){};
+        private List<TourTypesDTO> _toursTypes = new List<TourTypesDTO>() { };
         private int _selectIndexToursType;
         private string _search = string.Empty;
+        private int _sumCostViewTours = 0;
+        private bool _isActula = false;
 
         public List<TourDTO> Tours
         {
@@ -46,10 +48,26 @@ namespace tour_client.ViewModels
             }
         }
 
+        public bool IsActual
+        {
+            get => _isActula;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _isActula, value);
+                ApplyFilters();
+            }
+        }
+
+        public int SumCostViewTours
+        {
+            get => _sumCostViewTours;
+            set => this.RaiseAndSetIfChanged(ref _sumCostViewTours, value);
+        }
+
         public TourPageViewModel()
         {
             GetToursTypes();
-            ApplyFilters();   
+            ApplyFilters();
         }
 
         private async Task GetTours()
@@ -68,18 +86,23 @@ namespace tour_client.ViewModels
             SelectItemToursType = 0;
         }
 
-        private void ApplyFilters()
+        private async Task ApplyFilters()
         {
-            GetTours();
+            await GetTours();
 
-            //if (string.IsNullOrEmpty(Search))
-            //{
-            //    Tours = Tours.Where(x=> x.Name.Contains(Search) || x.Description.Contains(Search)).ToList();
-            //}
+            if (!string.IsNullOrEmpty(Search))
+            {
+                Tours = Tours.Where(x => ($"{x.Name}{x.Description}").Contains(Search, System.StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
 
             if (SelectItemToursType != 0)
             {
                 Tours = Tours.Where(x => x.Type.Contains(ToursTypes[SelectItemToursType].Id)).ToList();
+            }
+
+            if (IsActual)
+            {
+                Tours = Tours.Where(x=> x.IsActual == 1).ToList();
             }
         }
     }

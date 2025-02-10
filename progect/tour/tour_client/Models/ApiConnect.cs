@@ -68,6 +68,5 @@ namespace tour_client.Models
             string responceBody = await response.Content.ReadAsStringAsync();
             return responceBody;
         }
-
     }
 }

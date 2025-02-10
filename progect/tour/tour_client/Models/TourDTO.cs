@@ -5,7 +5,7 @@ namespace tour_api.DTO
     /// <summary>
     /// Модель вывода данных о турах
     /// </summary>
-    public class TourDTO
+    public partial class TourDTO
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

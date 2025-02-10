@@ -15,7 +15,7 @@
 	<Grid RowDefinitions="110, *">
 		<Grid Grid.Row="0" RowDefinitions="*,*,*" ColumnDefinitions="*,*" Margin="5" HorizontalAlignment="Center">
 			<TextBlock Margin="5" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Введите текст для поиска:</TextBlock>
-			<TextBox Margin="5" Grid.Row="0" Grid.Column="1" Watermark="Поиск" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="300"></TextBox>
+			<TextBox Margin="5" Grid.Row="0" Grid.Column="1" Watermark="Поиск" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="300" Text="{Binding Search}"></TextBox>
 
 			<TextBlock Margin="5" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Выберите тип:</TextBlock>
 			<ComboBox Margin="5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding ToursTypes}" SelectedIndex="{Binding SelectItemToursType}" Width="300">
@@ -27,7 +27,7 @@
 			</ComboBox>
 
 			<StackPanel Margin="5" Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-				<CheckBox VerticalAlignment="Center"></CheckBox>
+				<CheckBox VerticalAlignment="Center" IsChecked="{Binding IsActual}"></CheckBox>
 				<TextBlock VerticalAlignment="Center">только актуальные туры</TextBlock>
 			</StackPanel>
 		</Grid>
@@ -41,9 +41,9 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Border Margin="10">
-							<StackPanel>
+							<StackPanel HorizontalAlignment="Stretch">
 								<TextBlock Text="{Binding Name}"></TextBlock>
-								<Image Source="{Binding ImagePreview, Converter={StaticResource imageConv}}"></Image>
+								<Image Width="100" Height="100" Source="{Binding ImagePreview, Converter={StaticResource imageConv}}"></Image>
 								<TextBlock Text="{Binding Price, StringFormat='{}{0:N0} РУБ'}"></TextBlock>
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="{Binding IsActual}" HorizontalAlignment="Left"></TextBlock>
