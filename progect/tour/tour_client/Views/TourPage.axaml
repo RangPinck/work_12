@@ -5,7 +5,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="tour_client.TourPage"
 			 xmlns:vm ="using:tour_client.ViewModels"
-			 x:DataType="vm:TourPageViewModel">
+			 x:DataType="vm:TourPageViewModel"
+			 xmlns:imgCon="using:tour_client.Convertors">
+
+	<UserControl.Resources>
+		<imgCon:ImageConverter x:Key="imageConv"></imgCon:ImageConverter>
+	</UserControl.Resources>
+	
 	<Grid RowDefinitions="110, *">
 		<Grid Grid.Row="0" RowDefinitions="*,*,*" ColumnDefinitions="*,*" Margin="5" HorizontalAlignment="Center">
 			<TextBlock Margin="5" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Введите текст для поиска:</TextBlock>
@@ -26,9 +32,27 @@
 			</StackPanel>
 		</Grid>
 		<ScrollViewer Grid.Row="1">
-			<ListBox >
-
-
+			<ListBox ItemsSource="{Binding Tours}">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel></WrapPanel>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Margin="10">
+							<StackPanel>
+								<TextBlock Text="{Binding Name}"></TextBlock>
+								<Image Source="{Binding ImagePreview, Converter={StaticResource imageConv}}"></Image>
+								<TextBlock Text="{Binding Price, StringFormat='{}{0:N0} РУБ'}"></TextBlock>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding IsActual}" HorizontalAlignment="Left"></TextBlock>
+									<TextBlock Text="{Binding TicketCount, StringFormat='Билетов: {0}'}" HorizontalAlignment="Right"></TextBlock>
+								</StackPanel>
+							</StackPanel>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
 			</ListBox>
 		</ScrollViewer>
 	</Grid>

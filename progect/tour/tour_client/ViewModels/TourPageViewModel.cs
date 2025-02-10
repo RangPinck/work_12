@@ -10,8 +10,9 @@ namespace tour_client.ViewModels
     internal class TourPageViewModel : ViewModelBase
     {
         private List<TourDTO> _tours = new List<TourDTO>();
-        private List<TourTypesDTO> _toursTypes = new List<TourTypesDTO>();
-        private int _selectItemToursType = 0;
+        private List<TourTypesDTO> _toursTypes = new List<TourTypesDTO>(){};
+        private int _selectIndexToursType;
+        private string _search = string.Empty;
 
         public List<TourDTO> Tours
         {
@@ -27,10 +28,20 @@ namespace tour_client.ViewModels
 
         public int SelectItemToursType
         {
-            get => _selectItemToursType;
+            get => _selectIndexToursType;
             set
             {
-                this.RaiseAndSetIfChanged(ref _selectItemToursType, value);
+                this.RaiseAndSetIfChanged(ref _selectIndexToursType, value);
+                ApplyFilters();
+            }
+        }
+
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _search, value);
                 ApplyFilters();
             }
         }
@@ -38,7 +49,7 @@ namespace tour_client.ViewModels
         public TourPageViewModel()
         {
             GetToursTypes();
-            ApplyFilters();
+            ApplyFilters();   
         }
 
         private async Task GetTours()
@@ -52,11 +63,19 @@ namespace tour_client.ViewModels
         {
             string result = await MainWindowViewModel.ApiClient.GetToursTypes();
             ToursTypes = [new TourTypesDTO() { Id = 0, Type = "Не выбрано" }, .. JsonConvert.DeserializeObject<List<TourTypesDTO>>(result)];
+            //спросить как пофиксить костыль
+            SelectItemToursType = 1;
+            SelectItemToursType = 0;
         }
 
         private void ApplyFilters()
         {
             GetTours();
+
+            //if (string.IsNullOrEmpty(Search))
+            //{
+            //    Tours = Tours.Where(x=> x.Name.Contains(Search) || x.Description.Contains(Search)).ToList();
+            //}
 
             if (SelectItemToursType != 0)
             {
