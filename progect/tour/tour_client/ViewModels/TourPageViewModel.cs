@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -10,6 +11,7 @@ namespace tour_client.ViewModels
     {
         private List<TourDTO> _tours = new List<TourDTO>();
         private List<TourTypesDTO> _toursTypes = new List<TourTypesDTO>();
+        private int _selectItemToursType = 0;
 
         public List<TourDTO> Tours
         {
@@ -23,10 +25,20 @@ namespace tour_client.ViewModels
             set => this.RaiseAndSetIfChanged(ref _toursTypes, value);
         }
 
+        public int SelectItemToursType
+        {
+            get => _selectItemToursType;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectItemToursType, value);
+                ApplyFilters();
+            }
+        }
+
         public TourPageViewModel()
         {
-            GetTours();
             GetToursTypes();
+            ApplyFilters();
         }
 
         private async Task GetTours()
@@ -38,9 +50,18 @@ namespace tour_client.ViewModels
 
         private async Task GetToursTypes()
         {
-            string result = await MainWindowViewModel.ApiClient.GetTours();
-            ToursTypes =
-                JsonConvert.DeserializeObject<List<TourTypesDTO>>(result);
+            string result = await MainWindowViewModel.ApiClient.GetToursTypes();
+            ToursTypes = [new TourTypesDTO() { Id = 0, Type = "Не выбрано" }, .. JsonConvert.DeserializeObject<List<TourTypesDTO>>(result)];
+        }
+
+        private void ApplyFilters()
+        {
+            GetTours();
+
+            if (SelectItemToursType != 0)
+            {
+                Tours = Tours.Where(x => x.Type.Contains(ToursTypes[SelectItemToursType].Id)).ToList();
+            }
         }
     }
 }
