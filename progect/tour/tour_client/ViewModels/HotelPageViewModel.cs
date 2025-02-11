@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using Newtonsoft.Json;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace tour_client.ViewModels
         private int _countItems = 10;
         private int _position = 0;
         private int _allPositions;
+        private int _countHotels;
 
         public int CountItems
         {
@@ -35,6 +38,12 @@ namespace tour_client.ViewModels
         {
             get => _allPositions;
             set => this.RaiseAndSetIfChanged(ref _allPositions, value);
+        }
+
+        public int CountHotels
+        {
+            get => _countHotels;
+            set => this.RaiseAndSetIfChanged(ref _countHotels, value);
         }
 
         public List<HotelFullDTO> FullDataHotel
@@ -100,6 +109,8 @@ namespace tour_client.ViewModels
         {
             await GetHotels();
 
+            CountHotels = FullDataHotel.Count;
+
             if (CountItems > FullDataHotel.Count)
             {
                 CountItems = FullDataHotel.Count;
@@ -110,7 +121,30 @@ namespace tour_client.ViewModels
                 CountItems = 0;
             }
 
-            AllPositions = FullDataHotel.Count % _countItems == 0 ? FullDataHotel.Count / _countItems : FullDataHotel.Count / _countItems + 1;
+            AllPositions = CountHotels % _countItems == 0 ? CountHotels / _countItems : CountHotels / _countItems + 1;
+        }
+
+        public async Task DeleteHotel(HotelFullDTO hotel)
+        {
+            if (hotel != null)
+            {
+                var box = MessageBoxManager.GetMessageBoxStandard("Удаление", $"Вы действительно хотите удалить отель {hotel.Name}?", ButtonEnum.YesNo);
+
+                var result = await box.ShowAsync();
+
+                switch (result)
+                {
+                    case ButtonResult.Yes:
+                        await MainWindowViewModel.ApiClient.DeleteHotel(hotel.Id);
+                        await ChangePosition();
+                        break;
+                    case ButtonResult.No:
+                        return;
+                    default:
+                        return;
+                }
+
+            }
         }
     }
 }

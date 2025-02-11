@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using tour_api.DTO;
 
 namespace tour_client.Models
 {
@@ -78,6 +76,11 @@ namespace tour_client.Models
             }
             string responceBody = await response.Content.ReadAsStringAsync();
             return responceBody;
+        }
+
+        public async Task DeleteHotel(int hotelId)
+        {
+            HttpResponseMessage response = await HttpClient.DeleteAsync($"v1/Hotel/delete_hotel?hotelId={hotelId}");
         }
     }
 }
