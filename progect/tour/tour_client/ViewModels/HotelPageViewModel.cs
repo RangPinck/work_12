@@ -13,8 +13,8 @@ namespace tour_client.ViewModels
     {
         private List<HotelFullDTO> _fullDataHotel;
         private int _countItems = 10;
-        private int _position = 0;
-        private int _allPositions;
+        private int _position = 1;
+        private int _allPositions = 1;
         private int _countHotels;
 
         public int CountItems
@@ -54,8 +54,7 @@ namespace tour_client.ViewModels
 
         public HotelPageViewModel()
         {
-            ChangeCountItems();
-            ToStart();
+           Initialize();
         }
 
         private async Task GetHotels()
@@ -63,6 +62,8 @@ namespace tour_client.ViewModels
             string result = await MainWindowViewModel.ApiClient.GetHotels();
             FullDataHotel =
                 JsonConvert.DeserializeObject<List<HotelFullDTO>>(result);
+
+
         }
 
         public async Task ToStart()
@@ -136,15 +137,45 @@ namespace tour_client.ViewModels
                 {
                     case ButtonResult.Yes:
                         await MainWindowViewModel.ApiClient.DeleteHotel(hotel.Id);
-                        await ChangePosition();
+                        await Initialize();
+                        if (CountHotels % AllPositions == 0)
+                        {
+                            Position = 1;
+                            await ChangePosition();
+                        }
                         break;
                     case ButtonResult.No:
                         return;
                     default:
                         return;
                 }
-
             }
+        }
+
+        public void UpdateHotel(HotelFullDTO hotel)
+        {
+            if (hotel != null)
+            {
+                MainWindowViewModel.Instance.PageControl = new AUHotelPage(new HotelShortDTO()
+                {
+                    Id = hotel.Id,
+                    Name = hotel.Name,
+                    Description = hotel.Description,
+                    CountOfStars = hotel.CountOfStars,
+                    CountryCode = hotel.CountryCode
+                });
+            }            
+        }
+
+        public void AddHotel()
+        {
+            MainWindowViewModel.Instance.PageControl = new AUHotelPage();
+        }
+
+        private async Task Initialize()
+        {
+            await ChangeCountItems();
+            await ChangePosition();
         }
     }
 }

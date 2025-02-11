@@ -12,13 +12,13 @@
 			<ListBox ItemsSource="{Binding FullDataHotel}" HorizontalAlignment="Center">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Border Width="800" Height="150" Margin="5">
-							<Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*">
-								<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}"></TextBlock>
+						<Border Width="800" Height="150" Classes="Custom">
+							<Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*" Margin="10">
+								<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}" FontSize="25" TextWrapping="WrapWithOverflow"></TextBlock>
 								<TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CountOfStars, StringFormat=Количество звёзд: {0}}"></TextBlock>
 								<TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Country, StringFormat=Страна:  {0}}"></TextBlock>
-								<Button Grid.Column="1" Grid.Row="0">Редактировать</Button>
-								<Button Grid.Column="1" Grid.Row="1" Command="{Binding $parent[UserControl].((vm:HotelPageViewModel)DataContext).DeleteHotel}" CommandParameter="{Binding $parent[ListBox].SelectedItem}">Удалить</Button>
+								<Button Grid.Column="1" Grid.Row="0" Command="{Binding $parent[UserControl].((vm:HotelPageViewModel)DataContext).UpdateHotel}" CommandParameter="{Binding $parent[ListBox].SelectedItem}" HorizontalAlignment="Right">Редактировать</Button>
+								<Button Grid.Column="1" Grid.Row="1" Command="{Binding $parent[UserControl].((vm:HotelPageViewModel)DataContext).DeleteHotel}" CommandParameter="{Binding $parent[ListBox].SelectedItem}" HorizontalAlignment="Right">Удалить</Button>
 							</Grid>
 						</Border>
 					</DataTemplate>
@@ -44,6 +44,6 @@
 			</TextBlock>
 		</StackPanel>
 		
-		<Button Grid.Row="1" HorizontalAlignment="Left" Margin="10">Добавить отель</Button>
+		<Button Grid.Row="1" HorizontalAlignment="Left" Margin="10" Command="{Binding AddHotel}">Добавить отель</Button>
 	</Grid>
 </UserControl>

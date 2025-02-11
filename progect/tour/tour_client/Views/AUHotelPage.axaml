@@ -8,4 +8,36 @@
 			 x:DataType="vm:AUHotelPageViewModel"
 			 >
 
+	<Grid RowDefinitions="50, *, 50">
+		<Button Grid.Row="0" Margin="10" VerticalAlignment="Center" Command="{Binding GoToBack}">Назад</Button>
+		<Grid  Grid.Row="1" RowDefinitions="*,*,*,*" Margin="10">
+			<StackPanel Grid.Row="0">
+				<TextBlock Text="Название" Width="400"></TextBlock>
+				<TextBox Text="{Binding NewHotel.Name}" Width="400"></TextBox>
+			</StackPanel>
+			
+			<StackPanel Grid.Row="1">
+				<TextBlock Text="Количество звёзд" Width="400"></TextBlock>
+				<NumericUpDown Value="{Binding NewHotel.CountOfStars}" Minimum="0" Maximum="5" Increment="1" Width="400"></NumericUpDown>
+			</StackPanel>
+
+			<StackPanel Grid.Row="2" HorizontalAlignment="Center">
+				<TextBlock Text="Страна" Width="400"></TextBlock>
+				<ComboBox ItemsSource="{Binding Countries}" Width="400" SelectedIndex="{Binding SelectedIndexCountry}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Country}"></TextBlock>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+			</StackPanel>
+
+			<StackPanel Grid.Row="3">
+				<TextBlock Text="Описание" Width="400"></TextBlock>
+				<TextBox Text="{Binding NewHotel.Description}" Width="400"></TextBox>
+			</StackPanel>
+		</Grid>
+		<Button Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Command="{Binding SaveChenges}">Сохранить</Button>
+	</Grid>
+	
 </UserControl>

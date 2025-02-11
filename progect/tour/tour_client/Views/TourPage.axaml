@@ -48,14 +48,14 @@
 				</ListBox.ItemsPanel>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Border Margin="10" HorizontalAlignment="Center" Height="200" Width="200"> 
-							<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch">
-								<TextBlock Text="{Binding Name}" HorizontalAlignment="Center"></TextBlock>
+						<Border Margin="10" HorizontalAlignment="Center" Classes="Custom" Height="200" Width="250"> 
+							<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5">
+								<TextBlock Text="{Binding Name}" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
 								<Image Width="100" Height="100" HorizontalAlignment="Center" Source="{Binding ImagePreview, Converter={StaticResource imageConv}}"></Image>
-								<TextBlock HorizontalAlignment="Center" Text="{Binding Price, StringFormat='{}{0:N0} РУБ'}"></TextBlock>
+								<TextBlock HorizontalAlignment="Center" Text="{Binding Price, StringFormat='{}{0:N0} РУБ'}" TextAlignment="Center"></TextBlock>
 								<Grid ColumnDefinitions="*,*" VerticalAlignment="Center">
-									<TextBlock Text="{Binding IsActualText}" Foreground="{Binding IsActual, Converter={StaticResource isAct}}}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Margin="5"></TextBlock>
-									<TextBlock Text="{Binding TicketCount, StringFormat='Билетов: {0}'}" HorizontalAlignment="Right"  VerticalAlignment="Center" Grid.Column="1"> Margin="5"</TextBlock>
+									<TextBlock Text="{Binding IsActualText}" Foreground="{Binding IsActual, Converter={StaticResource isAct}}}" TextWrapping="NoWrap" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Margin="5" TextAlignment="Left"></TextBlock>
+									<TextBlock Text="{Binding TicketCount, StringFormat='Билетов: {0}'}" HorizontalAlignment="Right" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Margin="5"> </TextBlock>
 								</Grid>
 							</StackPanel>
 						</Border>
